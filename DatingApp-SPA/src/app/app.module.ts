@@ -8,7 +8,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-
+import { TimeagoModule } from 'ngx-timeago';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -56,6 +56,7 @@ export function tokenGetter() {
    imports: [
       BrowserModule,
       BrowserAnimationsModule,
+      TimeagoModule.forRoot(),
       HttpClientModule,
       FormsModule,
       ReactiveFormsModule,
