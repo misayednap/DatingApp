@@ -13,7 +13,7 @@ export class UserService {
   baseUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
-  getUsers(pageNumber?, itemsPerPage?, userParams?): Observable<PaginatedResult<User[]>> {
+  getUsers(pageNumber?, itemsPerPage?, userParams?, likesParams?): Observable<PaginatedResult<User[]>> {
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
 
     let params = new HttpParams();
@@ -28,6 +28,14 @@ export class UserService {
       params = params.append('gender', userParams.gender);
       params = params.append('orderBy', userParams.orderBy);
     }
+
+    if (likesParams === 'Likers'){
+      params = params.append('likers', 'true');
+    }
+    if (likesParams === 'Likees'){
+      params = params.append('likees', 'true');
+    }
+
      // Pagination is added to the header on the server side, we are getting it here
      // since we need the entire response, we have to do this and get the Pagination from the header
      // once we get the Pagination from the header,
@@ -58,5 +66,9 @@ export class UserService {
 
   deletePhoto(userId: number, id: number){
     return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
+  }
+
+  sendLike(id: number, recipientId: number){
+    return this.http.post(this.baseUrl + 'users/' + id + '/like/' + recipientId, {});
   }
 }
